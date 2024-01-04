@@ -10,10 +10,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Install Swift CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y swift
     - id: packExtensionDir
       uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
       with:
@@ -22,44 +18,31 @@ jobs:
     - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
       with:
         zipFilePath: 'build/extension.zip'
-        crxFilePath: 'build/griffin-audit-extension.crx'
+        crxFilePath: 'griffin-audit-extension.crx'
         privateKey: ${{ secrets.AUDIT_EXTENSION_PRIVATE_KEY }}
-        updateXmlPath: "build/updates.xml"
+        updateXmlPath: "updates.xml"
         updateXmlCodebaseUrl: "https://object-storage.nz-por-1.catalystcloud.io/v1/AUTH_c8460d43eefd4292a57eb86db9ee8549/griffin-public/griffin-audit-extension.crx"
-    - name: Upload files
-      working-directory: ./build
-      run: |
-        export OS_AUTH_URL="${{ secrets.AUTH_URL }}"
-        export OS_PASSWORD="${{ secrets.PASSWORD }}"
-        export OS_PROJECT_NAME="${{ secrets.PROJECT_NAME }}"
-        export OS_REGION_NAME="${{ secrets.REGION_NAME }}"
-        export OS_USERNAME="${{ secrets.USERNAME }}"
-        export OS_USER_DOMAIN_NAME="${{ secrets.USER_DOMAIN_NAME }}"
-        export OS_STORAGE_URL="${{ secrets.STORAGE_URL }}"
-        CONTAINER_NAME="griffin-public"
-        swift upload "$CONTAINER_NAME" updates.xml griffin-audit-extension.crx
-    # - name: Upload CRX
-    #   uses: iksaku/openstack-swift-action@master
-    #   env:
-    #     OS_AUTH_URL: ${{ secrets.AUTH_URL }}
-    #     OS_PASSWORD: ${{ secrets.PASSWORD }}
-    #     OS_PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-    #     OS_REGION_NAME: ${{ secrets.REGION_NAME }}
-    #     OS_USERNAME: ${{ secrets.USERNAME }}
-    #     OS_USER_DOMAIN_NAME: ${{ secrets.USER_DOMAIN_NAME }}
-    #     OS_STORAGE_URL: ${{ secrets.STORAGE_URL }}
-    #   with:
-    #     args: upload griffin-public build/griffin-audit-extension.crx
-    # - name: Upload updates.xml
-    #   uses: iksaku/openstack-swift-action@master
-    #   env:
-    #     OS_AUTH_URL: ${{ secrets.AUTH_URL }}
-    #     OS_PASSWORD: ${{ secrets.PASSWORD }}
-    #     OS_PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-    #     OS_REGION_NAME: ${{ secrets.REGION_NAME }}
-    #     OS_USERNAME: ${{ secrets.USERNAME }}
-    #     OS_USER_DOMAIN_NAME: ${{ secrets.USER_DOMAIN_NAME }}
-    #     OS_STORAGE_URL: ${{ secrets.STORAGE_URL }}
-    #   with:
-    #     args: upload griffin-public build/updates.xml
-    #   working-directory: build
+    - name: Upload CRX
+      uses: iksaku/openstack-swift-action@master
+      env:
+        OS_AUTH_URL: ${{ secrets.AUTH_URL }}
+        OS_PASSWORD: ${{ secrets.PASSWORD }}
+        OS_PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+        OS_REGION_NAME: ${{ secrets.REGION_NAME }}
+        OS_USERNAME: ${{ secrets.USERNAME }}
+        OS_USER_DOMAIN_NAME: ${{ secrets.USER_DOMAIN_NAME }}
+        OS_STORAGE_URL: ${{ secrets.STORAGE_URL }}
+      with:
+        args: upload griffin-public griffin-audit-extension.crx
+    - name: Upload updates.xml
+      uses: iksaku/openstack-swift-action@master
+      env:
+        OS_AUTH_URL: ${{ secrets.AUTH_URL }}
+        OS_PASSWORD: ${{ secrets.PASSWORD }}
+        OS_PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+        OS_REGION_NAME: ${{ secrets.REGION_NAME }}
+        OS_USERNAME: ${{ secrets.USERNAME }}
+        OS_USER_DOMAIN_NAME: ${{ secrets.USER_DOMAIN_NAME }}
+        OS_STORAGE_URL: ${{ secrets.STORAGE_URL }}
+      with:
+        args: upload griffin-public updates.xml
