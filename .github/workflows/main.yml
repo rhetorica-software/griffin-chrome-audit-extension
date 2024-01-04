@@ -29,13 +29,13 @@ jobs:
     - name: Upload files
       working-directory: ./build
       run: |
-        export OS_AUTH_URL=${{ secrets.AUTH_URL }}
-        export OS_PASSWORD=${{ secrets.PASSWORD }}
-        export OS_PROJECT_NAME=${{ secrets.PROJECT_NAME }}
-        export OS_REGION_NAME=${{ secrets.REGION_NAME }}
-        export OS_USERNAME=${{ secrets.USERNAME }}
-        export OS_USER_DOMAIN_NAME=${{ secrets.USER_DOMAIN_NAME }}
-        export OS_STORAGE_URL=${{ secrets.STORAGE_URL }}
+        export OS_AUTH_URL="${{ secrets.AUTH_URL }}"
+        export OS_PASSWORD="${{ secrets.PASSWORD }}"
+        export OS_PROJECT_NAME="${{ secrets.PROJECT_NAME }}"
+        export OS_REGION_NAME="${{ secrets.REGION_NAME }}"
+        export OS_USERNAME="${{ secrets.USERNAME }}"
+        export OS_USER_DOMAIN_NAME="${{ secrets.USER_DOMAIN_NAME }}"
+        export OS_STORAGE_URL="${{ secrets.STORAGE_URL }}"
         CONTAINER_NAME="griffin-public"
         swift upload "$CONTAINER_NAME" updates.xml griffin-audit-extension.crx
     # - name: Upload CRX
