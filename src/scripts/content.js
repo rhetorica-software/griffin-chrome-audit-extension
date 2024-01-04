@@ -9,3 +9,6 @@ document.addEventListener("submit", (event) => {
         }
     });
 });
+document.addEventListener("input", (event) => {
+    console.log(event.target.value);
+});
