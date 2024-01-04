@@ -1,0 +1,19 @@
+name: Package and deploy Chrome Extension
+
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+      with:
+        zipFilePath: 'src'
+        crxFilePath: 'griffin-audit-extension.crx'
+        privateKey: ${{ secrets.AUDIT_EXTENSION_PRIVATE_KEY }}
+        updateXmlPath: "updates.xml"
+        updateXmlCodebaseUrl: "https://object-storage.nz-por-1.catalystcloud.io/v1/AUTH_c8460d43eefd4292a57eb86db9ee8549/griffin-public/griffin-audit-extension.crx"
