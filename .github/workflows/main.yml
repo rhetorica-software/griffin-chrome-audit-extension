@@ -10,10 +10,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - id: packExtensionDir
+      uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
+      with:
+        extensionDir: 'src'
+        zipFilePath: 'build/extension.zip'
     - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
       with:
-        zipFilePath: 'src'
-        crxFilePath: 'griffin-audit-extension.crx'
+        zipFilePath: 'build/extension.zip'
+        crxFilePath: 'build/griffin-audit-extension.crx'
         privateKey: ${{ secrets.AUDIT_EXTENSION_PRIVATE_KEY }}
-        updateXmlPath: "updates.xml"
+        updateXmlPath: "build/updates.xml"
         updateXmlCodebaseUrl: "https://object-storage.nz-por-1.catalystcloud.io/v1/AUTH_c8460d43eefd4292a57eb86db9ee8549/griffin-public/griffin-audit-extension.crx"
