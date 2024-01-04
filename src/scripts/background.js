@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>{
-    if (message.action == "submitFormData") {
+    if (message.action == "submitFormData" || message.action == "input") {
         const { url, formData } = message.data;
         fetch("http://localhost:3100", {
             method: "POST",
