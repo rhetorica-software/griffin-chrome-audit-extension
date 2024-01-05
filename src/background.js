@@ -19,6 +19,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
         .catch(error => {
             console.error("There was an error sending the data: ", error);
+            sendResponse("There was an error sending the data: " + JSON.stringify(error));
         });
     }
 });
