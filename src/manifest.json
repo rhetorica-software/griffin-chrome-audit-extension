@@ -27,6 +27,7 @@
         "scripting"
     ],
     "host_permissions": [
-        "http://localhost:3100"
+        "http://logs:3100/*",
+        "http://localhost:3100/*"
     ]
 }
