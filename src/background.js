@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         foo: "bar"
                     },
                     values: [
-                        [ Date.now() * 1e6, `[${url}]: ${JSON.stringify(formData)}` ]
+                        [ `${Date.now() * 1e6}`, `[${url}]: ${JSON.stringify(formData)}` ]
                     ]
                 }
             ]
