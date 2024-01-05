@@ -8,8 +8,6 @@ document.addEventListener("submit", event => {
             url: window.location.href,
             formData: Object.fromEntries(formData.entries())
         }
-    },
-    (response) => {
-        console.log(response);
-    });
+    })
+    .then(response => console.log(response));
 });
