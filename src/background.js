@@ -1,11 +1,24 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "submitFormData") {
         const { url, formData } = message.data;
-        fetch("http://localhost:3100", {
+        const payload = {
+            streams: [
+                {
+                    stream: {
+                        foo: "bar"
+                    },
+                    values: [
+                        [ Date.now() * 1e6, `[${url}]: ${JSON.stringify(formData)}` ]
+                    ]
+                }
+            ]
+        };
+        fetch("http://logs:3100/loki/api/v1/push", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(payload)
         })
         .then(response => {
             if (!response.ok) {
