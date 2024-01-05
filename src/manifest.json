@@ -14,13 +14,13 @@
     "content_scripts": [
         {
             "js": [
-                "scripts/content.js"
+                "content.js"
             ],
             "matches": ["<all_urls>"]
         }
     ],
     "background": {
-        "service_worker": "scripts/background.js"
+        "service_worker": "background.js"
     },
     "permissions": [
         "activeTab",
