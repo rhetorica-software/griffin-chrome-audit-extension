@@ -3,7 +3,7 @@
     "name": "Griffin Logging Extension",
     "version": "2.0",
     "description": "Generate audit logs",
-    "update_url": "https://object-storage.nz-por-1.catalystcloud.io/v1/AUTH_c8460d43eefd4292a57eb86db9ee8549/griffin-public/updates.xml",
+    "update_url": "https://dev-extensions.griffin-web.com:7443/updates-audit.xml",
     "key": "ammedigflapfemmofepbeakbmlkpgela",
     "icons": {
         "16": "images/icon-16.png",
