@@ -24,10 +24,12 @@
     },
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "tabs",
+        "webNavigation",
+        "<all_urls>"
     ],
     "host_permissions": [
-        "http://logs:3100/*",
-        "http://localhost:3100/*"
+        "https://dev-loki.griffin-web.com:7443/*"
     ]
 }

@@ -13,12 +13,44 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 }
             ]
         };
-        fetch("http://logs:3100/loki/api/v1/push", {
+        fetch("http://dev-loki.griffin-web.com:7443/loki/api/v1/push", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Data sent: ", data);
+            sendResponse("Data sent: " + JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error("There was an error sending the data: ", error);
+            sendResponse("There was an error sending the data: " + JSON.stringify(error));
+        });
+    }
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // Check if the tab is updated with a new URL
+    if (changeInfo.url && tab.active) {
+        let logData = {
+            url: changeInfo.url,
+            timestamp: new Date().toISOString()
+        };
+
+        fetch("https://dev-loki.griffin-web.com:7443/loki/api/v1/push", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(logData)
         })
         .then(response => {
             if (!response.ok) {
