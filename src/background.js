@@ -13,6 +13,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 }
             ]
         };
+
+        console.log("Inside the onMessage listener: ", payload);
+        
         fetch("http://dev-loki.griffin-web.com:7443/loki/api/v1/push", {
             method: "POST",
             headers: {
@@ -44,6 +47,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             url: changeInfo.url,
             timestamp: new Date().toISOString()
         };
+        console.log("Inside the onUpdated listener: ", logData);
 
         fetch("https://dev-loki.griffin-web.com:7443/loki/api/v1/push", {
             method: "POST",
