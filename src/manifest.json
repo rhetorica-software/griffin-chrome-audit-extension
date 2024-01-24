@@ -11,6 +11,9 @@
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
+    "action": {
+        "default_popup": "index.html"
+    },
     "content_scripts": [
         {
             "js": [
@@ -20,7 +23,8 @@
         }
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "permissions": [
         "activeTab",
