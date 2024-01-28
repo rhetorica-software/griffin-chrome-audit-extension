@@ -15,6 +15,10 @@ General steps below:
 To set variables for the extension to recognise, put the below .json in /etc/opt/chrome/policies/managed inside the kasm container (make sure the extension ID is correct).
 Note - if you want to add new settings, you also need to make sure that [managed_schema.json](src/managed_schema.json) is correctly updated.
 
+ID when installed from the extensions server: ammedigflapfemmofepbeakbmlkpgela
+
+In the future, we'll use IDs for user/workspace/persona/organisation, rather than string values.
+
 ```json
 {
     "3rdparty": {
@@ -23,7 +27,7 @@ Note - if you want to add new settings, you also need to make sure that [managed
                 "settings": {
                     "user": "danielk",
                     "workspace": "ubuntu",
-                    "persona": "Anonymous",
+                    "persona": "anonymous",
                     "environment": "dev",
                     "organisation": "rhetorica",
                     "loki_url": "https://dev-loki.griffin-web.com:7443/loki/api/v1/push"
@@ -49,14 +53,12 @@ To install the extension from the local HTTP server, put the below .json in /etc
 
 ## Running a query against loki to test
 
-The below query retrieves the last 10 minutes of logs where the environment label = dev. Make sure the URL is correct.
+The below query retrieves the last 60 minutes of logs where the environment label = dev. Make sure the URL is correct.
 
 ```bash
-start_time=$(date --date='10 minutes ago' +%s)
-end_time=$(date +%s)
 query="{environment=\"dev\"}"
 
-curl -G "http://localhost:3100/loki/api/v1/query_range" --data-urlencode "query=$query" --data-urlencode "start=${start_time}" --data-urlencode "end=${end_time}" --data-urlencode "step=60"
+curl -G "https://dev-loki.griffin-web.com:7443/loki/api/v1/query_range" --data-urlencode "query=$query" --data-urlencode "step=60" | jq
 ```
 
 ## Log format
@@ -64,7 +66,7 @@ curl -G "http://localhost:3100/loki/api/v1/query_range" --data-urlencode "query=
 Currently, the format of the logs is determined by the below JS code (see: [url_recorder.js](src/url_recorder.js)):
 
 ```js
-    [`${logData.timestamp}`, `${user} ${workspace} ${persona} ${logData.url}`]
+[`${logData.timestamp}`, `${user} ${workspace} ${persona} "${logData.title}" ${logData.url}`]
 ```
 
 Note that Loki expects the first element of the array to be the timestamp, and the second element to be the log message.

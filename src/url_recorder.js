@@ -4,6 +4,7 @@ export function setupUrlRecorderListener(settings) {
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (changeInfo.url && tab.active) {
             let logData = {
+                title: changeInfo.title,
                 url: changeInfo.url,
                 timestamp: Date.now() * 1e6
             };
@@ -17,7 +18,7 @@ export function setupUrlRecorderListener(settings) {
                     {
                         stream: { environment: settings['environment'] || "no_environment_found",
                                   organisation: settings['organisation'] || "no_organisation_found",},
-                        values: [ [`${logData.timestamp}`, `${user} ${workspace} ${persona} ${logData.url}`] ]
+                        values: [ [`${logData.timestamp}`, `${user} ${workspace} ${persona} "${logData.title}" ${logData.url}`] ]
                     }
                 ]
             };
