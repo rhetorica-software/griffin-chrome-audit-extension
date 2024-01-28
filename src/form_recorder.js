@@ -1,6 +1,7 @@
 console.log("form_recorder.js");
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+export function setupFormRecorderListener(settings) {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "submitFormData") {
         const { url, formData } = message.data;
         const payload = {
@@ -42,4 +43,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 
     return true;
-});
+})};

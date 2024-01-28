@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "properties": {
+        "user": { "type": "string" },
+        "workspace": { "type": "string" },
+        "persona": { "type": "string" },
+        "environment": { "type": "string" },
+        "organisation": { "type": "string" },
+        "loki_url": { "type": "string" }
+      }
+    }
+  }
+}

@@ -31,9 +31,13 @@
         "scripting",
         "tabs",
         "webNavigation",
-        "<all_urls>"
+        "<all_urls>",
+        "storage"
     ],
     "host_permissions": [
         "https://dev-loki.griffin-web.com:7443/*"
-    ]
+    ],
+    "storage": {
+        "managed_schema": "managed_schema.json"
+    }
 }
