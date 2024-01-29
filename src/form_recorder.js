@@ -1,5 +1,3 @@
-console.log("form_recorder.js");
-
 export function setupFormRecorderListener(settings) {
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "submitFormData") {

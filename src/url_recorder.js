@@ -1,11 +1,9 @@
-console.log("url_recorder.js");
-
 export function setupUrlRecorderListener(settings) {
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-        if (changeInfo.url && tab.active) {
+        if (changeInfo.status === "complete") {
             let logData = {
-                title: changeInfo.title,
-                url: changeInfo.url,
+                title: tab.title.replace(/"/g, '\\"'), // Escaping quotation marks
+                url: tab.url,
                 timestamp: Date.now() * 1e6
             };
 
@@ -32,9 +30,9 @@ export function setupUrlRecorderListener(settings) {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                return response.json();
+                //return response.json();
             })
-            .then(data => console.log("Data sent: ", data))
+            //.then(data => console.log("Data sent: ", data))
             .catch(error => console.error("Error sending data: ", error));
         }
     });
