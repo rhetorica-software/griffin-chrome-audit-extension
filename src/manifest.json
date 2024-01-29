@@ -14,14 +14,6 @@
     "action": {
         "default_popup": "index.html"
     },
-    "content_scripts": [
-        {
-            "js": [
-                "content.js"
-            ],
-            "matches": ["<all_urls>"]
-        }
-    ],
     "background": {
         "service_worker": "background.js",
         "type": "module"

@@ -1,5 +1,5 @@
 import { setupUrlRecorderListener } from './url_recorder.js';
-import { setupFormRecorderListener} from './form_recorder.js';
+// import { setupFormRecorderListener} from './form_recorder.js';
 
 async function getManagedSettings() {
     console.log("inside getManagedSettings");
