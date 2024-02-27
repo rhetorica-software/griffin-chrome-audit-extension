@@ -10,6 +10,8 @@ General steps below:
 - (Optional) Increase CPU and memory allocated to help speed up performance
 - Start work space, and then manually install extension by uploading the dist-chrome.zip file and extracting on the host. Install it via chrome://extensions "Load Unpacked".
 
+Ps. the above steps have been replicated in a dedicated workspace image, which automatically downloads the latest extensions from the SWAG server.
+
 ## Chrome managed policies
 
 To set variables for the extension to recognise, put the below .json in /etc/opt/chrome/policies/managed inside the kasm container (make sure the extension ID is correct).
@@ -25,11 +27,11 @@ In the future, we'll use IDs for user/workspace/persona/organisation, rather tha
         "extensions": {
             "fepodgbdpfeaphppaeadbdajgclilkpn": {
                 "settings": {
-                    "user": "danielk",
-                    "workspace": "ubuntu",
-                    "persona": "anonymous",
+                    "user": "userid-1234",
+                    "workspace": "workspaceid-1234",
+                    "persona": "personaid-1234",
                     "environment": "dev",
-                    "organisation": "rhetorica",
+                    "organisation": "organisationid-1234",
                     "loki_url": "https://dev-loki.griffin-web.com:7443/loki/api/v1/push"
                 }
             }
@@ -53,7 +55,7 @@ To install the extension from the local HTTP server, put the below .json in /etc
 
 ## Running a query against loki to test
 
-The below query retrieves the last 60 minutes of logs where the environment label = dev. Make sure the URL is correct.
+The below query retrieves the last 60 minutes of logs where the environment label = dev. Make sure the URL is correct. Note that Loki has BASIC auth on the query API, credentials are in Keeper.
 
 ```bash
 query="{environment=\"dev\"}"
