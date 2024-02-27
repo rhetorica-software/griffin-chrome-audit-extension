@@ -58,7 +58,7 @@ The below query retrieves the last 60 minutes of logs where the environment labe
 ```bash
 query="{environment=\"dev\"}"
 
-curl -G "https://dev-loki.griffin-web.com:7443/loki/api/v1/query_range" --data-urlencode "query=$query" --data-urlencode "step=60" | jq
+curl -G "https://dev-loki.griffin-web.com:7443/loki/api/v1/query_range" --data-urlencode "query=$query" --data-urlencode "step=60" -u "USERNAME:PASSWORD" | jq
 ```
 
 ## Log format
