@@ -1,3 +1,5 @@
+const DELIMITER = "|";
+
 export function setupUrlRecorderListener(settings) {
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (changeInfo.status === "complete") {
@@ -16,7 +18,8 @@ export function setupUrlRecorderListener(settings) {
                     {
                         stream: { environment: settings['environment'] || "no_environment_found",
                                   organisation: settings['organisation'] || "no_organisation_found",},
-                        values: [ [`${logData.timestamp}`, `${user} ${workspace} ${persona} "${logData.title}" ${logData.url}`] ]
+                        // This is to produce a line like 'userId|workspaceId|personaId|"Some data that can include pipes | More data"|https://example.com'
+                        values: [ [`${logData.timestamp}`, `${user}${DELIMITER}${workspace}${DELIMITER}${persona}${DELIMITER}"${logData.title}"${DELIMITER}${logData.url}`] ]
                     }
                 ]
             };
