@@ -68,7 +68,7 @@ curl -G "https://dev-loki.griffin-web.com:7443/loki/api/v1/query_range" --data-u
 Currently, the format of the logs is determined by the below JS code (see: [url_recorder.js](src/url_recorder.js)):
 
 ```js
-[`${logData.timestamp}`, `${user} ${workspace} ${persona} "${logData.title}" ${logData.url}`]
+[`${logData.timestamp}`, `${user}${DELIMITER}${workspace}${DELIMITER}${persona}${DELIMITER}"${logData.title}"${DELIMITER}${logData.url}`]
 ```
 
 Note that Loki expects the first element of the array to be the timestamp, and the second element to be the log message.
