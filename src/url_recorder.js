@@ -13,6 +13,8 @@ export function setupUrlRecorderListener(settings) {
             const user = settings['user'] || "no_user_found";
             const workspace = settings['workspace'] || "no_workspace_found";
             const persona = settings['persona'] || "no_persona_found";
+            const auth = 'Basic ' + btoa('admin' + ':' + 'admin'); // Encode credentials
+
             const payload = {
                 streams: [
                     {
@@ -26,7 +28,10 @@ export function setupUrlRecorderListener(settings) {
 
             fetch(lokiUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": auth
+                },
                 body: JSON.stringify(payload)
             })
             .then(response => {
