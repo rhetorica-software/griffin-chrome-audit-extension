@@ -27,8 +27,8 @@
         "storage"
     ],
     "host_permissions": [
-        "https://dev-loki.griffin-web.com:7443/*",
-        "https://loki.griffin-web.com:7443/*",
+        "https://dev-logs.griffin-web.com:7443/*",
+        "https://logs.griffin-web.com:7443/*",
         "http://nginx_proxy:8082/*"
     ],
     "storage": {

@@ -3,6 +3,12 @@ const DELIMITER = "|";
 export function setupUrlRecorderListener(settings) {
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (changeInfo.status === "complete") {
+            // Check if URL starts with "chrome://"
+            if (tab.url.startsWith("chrome://")) {
+                // If it does, drop the event and don't process further
+                return;
+            }
+
             let logData = {
                 title: tab.title.replace(/"/g, '\\"'), // Escaping quotation marks
                 url: tab.url,
@@ -13,8 +19,6 @@ export function setupUrlRecorderListener(settings) {
             const user = settings['user'] || "no_user_found";
             const workspace = settings['workspace'] || "no_workspace_found";
             const persona = settings['persona'] || "no_persona_found";
-            const auth = 'Basic ' + btoa('admin' + ':' + 'admin'); // Encode credentials
-
             const payload = {
                 streams: [
                     {
@@ -28,10 +32,7 @@ export function setupUrlRecorderListener(settings) {
 
             fetch(lokiUrl, {
                 method: "POST",
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": auth
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
             .then(response => {
